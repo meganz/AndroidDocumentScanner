@@ -339,7 +339,7 @@ CV_EXPORTS_W double findTransformECC( InputArray templateImage, InputArray input
                                       InputArray inputMask, int gaussFiltSize);
 
 /** @overload */
-CV_EXPORTS
+CV_EXPORTS_W
 double findTransformECC(InputArray templateImage, InputArray inputImage,
     InputOutputArray warpMatrix, int motionType = MOTION_AFFINE,
     TermCriteria criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 50, 0.001),
@@ -818,6 +818,36 @@ public:
     //bool update(InputArray image, CV_OUT Rect& boundingBox) CV_OVERRIDE;
 };
 
+class CV_EXPORTS_W TrackerDaSiamRPN : public Tracker
+{
+protected:
+    TrackerDaSiamRPN();  // use ::create()
+public:
+    virtual ~TrackerDaSiamRPN() CV_OVERRIDE;
+
+    struct CV_EXPORTS_W_SIMPLE Params
+    {
+        CV_WRAP Params();
+        CV_PROP_RW std::string model;
+        CV_PROP_RW std::string kernel_cls1;
+        CV_PROP_RW std::string kernel_r1;
+        CV_PROP_RW int backend;
+        CV_PROP_RW int target;
+    };
+
+    /** @brief Constructor
+    @param parameters DaSiamRPN parameters TrackerDaSiamRPN::Params
+    */
+    static CV_WRAP
+    Ptr<TrackerDaSiamRPN> create(const TrackerDaSiamRPN::Params& parameters = TrackerDaSiamRPN::Params());
+
+    /** @brief Return tracking score
+    */
+    CV_WRAP virtual float getTrackingScore() = 0;
+
+    //void init(InputArray image, const Rect& boundingBox) CV_OVERRIDE;
+    //bool update(InputArray image, CV_OUT Rect& boundingBox) CV_OVERRIDE;
+};
 
 
 //! @} video_track

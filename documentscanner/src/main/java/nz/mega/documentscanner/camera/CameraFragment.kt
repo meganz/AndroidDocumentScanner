@@ -27,6 +27,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import nz.mega.documentscanner.BuildConfig
 import nz.mega.documentscanner.DocumentScannerViewModel
 import nz.mega.documentscanner.R
 import nz.mega.documentscanner.databinding.FragmentCameraBinding
@@ -117,12 +118,13 @@ class CameraFragment : Fragment() {
                 .setFlashMode(viewModel.getFlashMode().value ?: FLASH_MODE_AUTO)
                 .build()
 
-//            TODO Disabled until further improvement
-//            imageAnalyzer = ImageAnalysis.Builder()
-//                .setTargetAspectRatio(screenAspectRatio)
-//                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-//                .build()
-//                .apply { setAnalyzer(cameraExecutor, ::analyzePreviewImage) }
+            if (BuildConfig.DEBUG) {
+                imageAnalyzer = ImageAnalysis.Builder()
+                    .setTargetAspectRatio(screenAspectRatio)
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .apply { setAnalyzer(cameraExecutor, ::analyzePreviewImage) }
+            }
 
             val cameraSelector = CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
@@ -134,13 +136,22 @@ class CameraFragment : Fragment() {
 
             cameraProvider?.unbindAll()
 
-            camera = cameraProvider?.bindToLifecycle(
-                viewLifecycleOwner,
-                cameraSelector,
-                preview,
-                imageCapture
-//                ,imageAnalyzer
-            )
+            if (BuildConfig.DEBUG) {
+                camera = cameraProvider?.bindToLifecycle(
+                    viewLifecycleOwner,
+                    cameraSelector,
+                    preview,
+                    imageCapture,
+                    imageAnalyzer
+                )
+            } else {
+                camera = cameraProvider?.bindToLifecycle(
+                    viewLifecycleOwner,
+                    cameraSelector,
+                    preview,
+                    imageCapture
+                )
+            }
 
             preview?.setSurfaceProvider(binding.cameraView.surfaceProvider)
 

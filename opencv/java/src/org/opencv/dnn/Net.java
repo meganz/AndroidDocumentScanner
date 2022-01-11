@@ -8,6 +8,7 @@ import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfDouble;
+import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.Scalar;
 import org.opencv.dnn.DictValue;
@@ -297,6 +298,55 @@ public class Net {
     //
 
     // Unknown type 'vector_vector_Mat' (O), skipping the function
+
+
+    //
+    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype)
+    //
+
+    /**
+     * Returns a quantized Net from a floating-point Net.
+     * @param calibData Calibration data to compute the quantization parameters.
+     * @param inputsDtype Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
+     * @param outputsDtype Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
+     * @return automatically generated
+     */
+    public Net quantize(List<Mat> calibData, int inputsDtype, int outputsDtype) {
+        Mat calibData_mat = Converters.vector_Mat_to_Mat(calibData);
+        return new Net(quantize_0(nativeObj, calibData_mat.nativeObj, inputsDtype, outputsDtype));
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::getInputDetails(vector_float& scales, vector_int& zeropoints)
+    //
+
+    /**
+     * Returns input scale and zeropoint for a quantized Net.
+     * @param scales output parameter for returning input scales.
+     * @param zeropoints output parameter for returning input zeropoints.
+     */
+    public void getInputDetails(MatOfFloat scales, MatOfInt zeropoints) {
+        Mat scales_mat = scales;
+        Mat zeropoints_mat = zeropoints;
+        getInputDetails_0(nativeObj, scales_mat.nativeObj, zeropoints_mat.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::dnn::Net::getOutputDetails(vector_float& scales, vector_int& zeropoints)
+    //
+
+    /**
+     * Returns output scale and zeropoint for a quantized Net.
+     * @param scales output parameter for returning output scales.
+     * @param zeropoints output parameter for returning output zeropoints.
+     */
+    public void getOutputDetails(MatOfFloat scales, MatOfInt zeropoints) {
+        Mat scales_mat = scales;
+        Mat zeropoints_mat = zeropoints;
+        getOutputDetails_0(nativeObj, scales_mat.nativeObj, zeropoints_mat.nativeObj);
+    }
 
 
     //
@@ -637,8 +687,10 @@ public class Net {
 
     /**
      * Returns overall time for inference and timings (in ticks) for layers.
+     *
      * Indexes in returned vector correspond to layers ids. Some layers can be fused with others,
-     * in this case zero ticks count will be return for that skipped layers.
+     * in this case zero ticks count will be return for that skipped layers. Supported by DNN_BACKEND_OPENCV on DNN_TARGET_CPU only.
+     *
      * @param timings vector for tick timings for all layers.
      * @return overall ticks for model inference.
      */
@@ -701,6 +753,15 @@ public class Net {
 
     // C++:  void cv::dnn::Net::forward(vector_Mat& outputBlobs, vector_String outBlobNames)
     private static native void forward_4(long nativeObj, long outputBlobs_mat_nativeObj, List<String> outBlobNames);
+
+    // C++:  Net cv::dnn::Net::quantize(vector_Mat calibData, int inputsDtype, int outputsDtype)
+    private static native long quantize_0(long nativeObj, long calibData_mat_nativeObj, int inputsDtype, int outputsDtype);
+
+    // C++:  void cv::dnn::Net::getInputDetails(vector_float& scales, vector_int& zeropoints)
+    private static native void getInputDetails_0(long nativeObj, long scales_mat_nativeObj, long zeropoints_mat_nativeObj);
+
+    // C++:  void cv::dnn::Net::getOutputDetails(vector_float& scales, vector_int& zeropoints)
+    private static native void getOutputDetails_0(long nativeObj, long scales_mat_nativeObj, long zeropoints_mat_nativeObj);
 
     // C++:  void cv::dnn::Net::setHalideScheduler(String scheduler)
     private static native void setHalideScheduler_0(long nativeObj, String scheduler);

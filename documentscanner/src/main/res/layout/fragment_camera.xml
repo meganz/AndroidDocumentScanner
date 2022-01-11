@@ -30,7 +30,6 @@
         android:id="@+id/camera_overlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/camera_view"
         app:layout_constraintLeft_toLeftOf="@id/camera_view"
         app:layout_constraintRight_toRightOf="@id/camera_view"

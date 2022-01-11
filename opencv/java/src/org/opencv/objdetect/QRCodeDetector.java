@@ -9,13 +9,7 @@ import org.opencv.core.Mat;
 import org.opencv.utils.Converters;
 
 // C++: class QRCodeDetector
-/**
- * Groups the object candidate rectangles.
- *     rectList  Input/output vector of rectangles. Output vector includes retained and grouped rectangles. (The Python list is not modified in place.)
- *     weights Input/output vector of weights of rectangles. Output vector includes weights of retained and grouped rectangles. (The Python list is not modified in place.)
- *     groupThreshold Minimum possible number of rectangles minus 1. The threshold is used in a group of rectangles to retain it.
- *     eps Relative difference between sides of the rectangles to merge them into a group.
- */
+
 public class QRCodeDetector {
 
     protected final long nativeObj;

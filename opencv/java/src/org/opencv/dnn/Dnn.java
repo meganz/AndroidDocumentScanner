@@ -9,6 +9,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.MatOfRect2d;
 import org.opencv.core.MatOfRotatedRect;
 import org.opencv.core.Scalar;
@@ -27,7 +28,14 @@ public class Dnn {
             DNN_BACKEND_INFERENCE_ENGINE = 0+2,
             DNN_BACKEND_OPENCV = 0+3,
             DNN_BACKEND_VKCOM = 0+4,
-            DNN_BACKEND_CUDA = 0+5;
+            DNN_BACKEND_CUDA = 0+5,
+            DNN_BACKEND_WEBNN = 0+6;
+
+
+    // C++: enum SoftNMSMethod (cv.dnn.SoftNMSMethod)
+    public static final int
+            SoftNMSMethod_SOFTNMS_LINEAR = 1,
+            SoftNMSMethod_SOFTNMS_GAUSSIAN = 2;
 
 
     // C++: enum Target (cv.dnn.Target)
@@ -965,6 +973,71 @@ public class Dnn {
 
 
     //
+    // C++:  void cv::dnn::softNMSBoxes(vector_Rect bboxes, vector_float scores, vector_float& updated_scores, float score_threshold, float nms_threshold, vector_int& indices, size_t top_k = 0, float sigma = 0.5, SoftNMSMethod method = SoftNMSMethod::SOFTNMS_GAUSSIAN)
+    //
+
+    /**
+     * Performs soft non maximum suppression given boxes and corresponding scores.
+     * Reference: https://arxiv.org/abs/1704.04503
+     * @param bboxes a set of bounding boxes to apply Soft NMS.
+     * @param scores a set of corresponding confidences.
+     * @param updated_scores a set of corresponding updated confidences.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     * @param top_k keep at most {@code top_k} picked indices.
+     * @param sigma parameter of Gaussian weighting.
+     * SEE: SoftNMSMethod
+     */
+    public static void softNMSBoxes(MatOfRect bboxes, MatOfFloat scores, MatOfFloat updated_scores, float score_threshold, float nms_threshold, MatOfInt indices, long top_k, float sigma) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat updated_scores_mat = updated_scores;
+        Mat indices_mat = indices;
+        softNMSBoxes_0(bboxes_mat.nativeObj, scores_mat.nativeObj, updated_scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj, top_k, sigma);
+    }
+
+    /**
+     * Performs soft non maximum suppression given boxes and corresponding scores.
+     * Reference: https://arxiv.org/abs/1704.04503
+     * @param bboxes a set of bounding boxes to apply Soft NMS.
+     * @param scores a set of corresponding confidences.
+     * @param updated_scores a set of corresponding updated confidences.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     * @param top_k keep at most {@code top_k} picked indices.
+     * SEE: SoftNMSMethod
+     */
+    public static void softNMSBoxes(MatOfRect bboxes, MatOfFloat scores, MatOfFloat updated_scores, float score_threshold, float nms_threshold, MatOfInt indices, long top_k) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat updated_scores_mat = updated_scores;
+        Mat indices_mat = indices;
+        softNMSBoxes_2(bboxes_mat.nativeObj, scores_mat.nativeObj, updated_scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj, top_k);
+    }
+
+    /**
+     * Performs soft non maximum suppression given boxes and corresponding scores.
+     * Reference: https://arxiv.org/abs/1704.04503
+     * @param bboxes a set of bounding boxes to apply Soft NMS.
+     * @param scores a set of corresponding confidences.
+     * @param updated_scores a set of corresponding updated confidences.
+     * @param score_threshold a threshold used to filter boxes by score.
+     * @param nms_threshold a threshold used in non maximum suppression.
+     * @param indices the kept indices of bboxes after NMS.
+     * SEE: SoftNMSMethod
+     */
+    public static void softNMSBoxes(MatOfRect bboxes, MatOfFloat scores, MatOfFloat updated_scores, float score_threshold, float nms_threshold, MatOfInt indices) {
+        Mat bboxes_mat = bboxes;
+        Mat scores_mat = scores;
+        Mat updated_scores_mat = updated_scores;
+        Mat indices_mat = indices;
+        softNMSBoxes_3(bboxes_mat.nativeObj, scores_mat.nativeObj, updated_scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj);
+    }
+
+
+    //
     // C++:  String cv::dnn::getInferenceEngineBackendType()
     //
 
@@ -1025,6 +1098,21 @@ public class Dnn {
      */
     public static String getInferenceEngineVPUType() {
         return getInferenceEngineVPUType_0();
+    }
+
+
+    //
+    // C++:  String cv::dnn::getInferenceEngineCPUType()
+    //
+
+    /**
+     * Returns Inference Engine CPU type.
+     *
+     * Specify OpenVINO plugin: CPU or ARM.
+     * @return automatically generated
+     */
+    public static String getInferenceEngineCPUType() {
+        return getInferenceEngineCPUType_0();
     }
 
 
@@ -1140,6 +1228,11 @@ public class Dnn {
     private static native void NMSBoxesRotated_1(long bboxes_mat_nativeObj, long scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, float eta);
     private static native void NMSBoxesRotated_2(long bboxes_mat_nativeObj, long scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj);
 
+    // C++:  void cv::dnn::softNMSBoxes(vector_Rect bboxes, vector_float scores, vector_float& updated_scores, float score_threshold, float nms_threshold, vector_int& indices, size_t top_k = 0, float sigma = 0.5, SoftNMSMethod method = SoftNMSMethod::SOFTNMS_GAUSSIAN)
+    private static native void softNMSBoxes_0(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long updated_scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, long top_k, float sigma);
+    private static native void softNMSBoxes_2(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long updated_scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj, long top_k);
+    private static native void softNMSBoxes_3(long bboxes_mat_nativeObj, long scores_mat_nativeObj, long updated_scores_mat_nativeObj, float score_threshold, float nms_threshold, long indices_mat_nativeObj);
+
     // C++:  String cv::dnn::getInferenceEngineBackendType()
     private static native String getInferenceEngineBackendType_0();
 
@@ -1151,6 +1244,9 @@ public class Dnn {
 
     // C++:  String cv::dnn::getInferenceEngineVPUType()
     private static native String getInferenceEngineVPUType_0();
+
+    // C++:  String cv::dnn::getInferenceEngineCPUType()
+    private static native String getInferenceEngineCPUType_0();
 
     // C++:  void cv::dnn::releaseHDDLPlugin()
     private static native void releaseHDDLPlugin_0();

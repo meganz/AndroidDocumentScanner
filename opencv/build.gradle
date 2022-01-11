@@ -58,7 +58,7 @@
 //
 // - Use find_package() in app/CMakeLists.txt:
 //
-//   find_package(OpenCV 3.4 REQUIRED java)
+//   find_package(OpenCV 4.5 REQUIRED java)
 //   ...
 //   target_link_libraries(native-lib ${OpenCV_LIBRARIES})
 //
@@ -89,12 +89,12 @@
 //
 
 apply plugin: 'com.android.library'
-apply plugin: "maven-publish"
+apply plugin: 'kotlin-android'
 
-def openCVersionName = "4.5.1"
-def openCVersionCode = ((4 * 100 + 5) * 100 + 1) * 10 + 0
+def openCVersionName = "4.5.5"
+def openCVersionCode = ((4 * 100 + 5) * 100 + 5) * 10 + 0
 
-println "OpenCV: " + openCVersionName + " " + project.buildscript.sourceFile
+println "OpenCV: " +openCVersionName + " " + project.buildscript.sourceFile
 
 android {
     compileSdkVersion 26
@@ -132,10 +132,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
-    }
 
     sourceSets {
         main {
@@ -149,36 +145,10 @@ android {
 
     externalNativeBuild {
         cmake {
-            path(project.projectDir.toString() + '/libcxx_helper/CMakeLists.txt')
+            path (project.projectDir.toString() + '/libcxx_helper/CMakeLists.txt')
         }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    packagingOptions {
-        exclude '**/armeabi/**'
-        exclude '**/mips/**'
-        exclude '**/mips64/**'
-        exclude '**/x86_64/**'
-        exclude '**/x86/**'
     }
 }
 
 dependencies {
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            aar(MavenPublication) {
-                from components.release
-
-                groupId = rootProject.ext.group
-                artifactId = project.getName()
-                version = openCVersionName
-            }
-        }
-    }
 }

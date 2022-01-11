@@ -37,6 +37,15 @@ public class Video {
             MOTION_HOMOGRAPHY = 3;
 
 
+    // C++: enum MODE (cv.detail.TrackerSamplerCSC.MODE)
+    public static final int
+            TrackerSamplerCSC_MODE_INIT_POS = 1,
+            TrackerSamplerCSC_MODE_INIT_NEG = 2,
+            TrackerSamplerCSC_MODE_TRACK_POS = 3,
+            TrackerSamplerCSC_MODE_TRACK_NEG = 4,
+            TrackerSamplerCSC_MODE_DETECT = 5;
+
+
     //
     // C++:  RotatedRect cv::CamShift(Mat probImage, Rect& window, TermCriteria criteria)
     //
@@ -799,6 +808,27 @@ public class Video {
 
 
     //
+    // C++:  double cv::findTransformECC(Mat templateImage, Mat inputImage, Mat& warpMatrix, int motionType = MOTION_AFFINE, TermCriteria criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 50, 0.001), Mat inputMask = Mat())
+    //
+
+    public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat inputMask) {
+        return findTransformECC_1(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType, criteria.type, criteria.maxCount, criteria.epsilon, inputMask.nativeObj);
+    }
+
+    public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria) {
+        return findTransformECC_2(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType, criteria.type, criteria.maxCount, criteria.epsilon);
+    }
+
+    public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType) {
+        return findTransformECC_3(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType);
+    }
+
+    public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix) {
+        return findTransformECC_4(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj);
+    }
+
+
+    //
     // C++:  Mat cv::readOpticalFlow(String path)
     //
 
@@ -983,6 +1013,12 @@ public class Video {
 
     // C++:  double cv::findTransformECC(Mat templateImage, Mat inputImage, Mat& warpMatrix, int motionType, TermCriteria criteria, Mat inputMask, int gaussFiltSize)
     private static native double findTransformECC_0(long templateImage_nativeObj, long inputImage_nativeObj, long warpMatrix_nativeObj, int motionType, int criteria_type, int criteria_maxCount, double criteria_epsilon, long inputMask_nativeObj, int gaussFiltSize);
+
+    // C++:  double cv::findTransformECC(Mat templateImage, Mat inputImage, Mat& warpMatrix, int motionType = MOTION_AFFINE, TermCriteria criteria = TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 50, 0.001), Mat inputMask = Mat())
+    private static native double findTransformECC_1(long templateImage_nativeObj, long inputImage_nativeObj, long warpMatrix_nativeObj, int motionType, int criteria_type, int criteria_maxCount, double criteria_epsilon, long inputMask_nativeObj);
+    private static native double findTransformECC_2(long templateImage_nativeObj, long inputImage_nativeObj, long warpMatrix_nativeObj, int motionType, int criteria_type, int criteria_maxCount, double criteria_epsilon);
+    private static native double findTransformECC_3(long templateImage_nativeObj, long inputImage_nativeObj, long warpMatrix_nativeObj, int motionType);
+    private static native double findTransformECC_4(long templateImage_nativeObj, long inputImage_nativeObj, long warpMatrix_nativeObj);
 
     // C++:  Mat cv::readOpticalFlow(String path)
     private static native long readOpticalFlow_0(String path);

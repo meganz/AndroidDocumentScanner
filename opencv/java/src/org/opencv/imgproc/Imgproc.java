@@ -307,6 +307,14 @@ public class Imgproc {
             COLOR_BayerGB2BGR = 47,
             COLOR_BayerRG2BGR = 48,
             COLOR_BayerGR2BGR = 49,
+            COLOR_BayerRGGB2BGR = COLOR_BayerBG2BGR,
+            COLOR_BayerGRBG2BGR = COLOR_BayerGB2BGR,
+            COLOR_BayerBGGR2BGR = COLOR_BayerRG2BGR,
+            COLOR_BayerGBRG2BGR = COLOR_BayerGR2BGR,
+            COLOR_BayerRGGB2RGB = COLOR_BayerBGGR2BGR,
+            COLOR_BayerGRBG2RGB = COLOR_BayerGBRG2BGR,
+            COLOR_BayerBGGR2RGB = COLOR_BayerRGGB2BGR,
+            COLOR_BayerGBRG2RGB = COLOR_BayerGRBG2BGR,
             COLOR_BayerBG2RGB = COLOR_BayerRG2BGR,
             COLOR_BayerGB2RGB = COLOR_BayerGR2BGR,
             COLOR_BayerRG2RGB = COLOR_BayerBG2BGR,
@@ -315,10 +323,22 @@ public class Imgproc {
             COLOR_BayerGB2GRAY = 87,
             COLOR_BayerRG2GRAY = 88,
             COLOR_BayerGR2GRAY = 89,
+            COLOR_BayerRGGB2GRAY = COLOR_BayerBG2GRAY,
+            COLOR_BayerGRBG2GRAY = COLOR_BayerGB2GRAY,
+            COLOR_BayerBGGR2GRAY = COLOR_BayerRG2GRAY,
+            COLOR_BayerGBRG2GRAY = COLOR_BayerGR2GRAY,
             COLOR_BayerBG2BGR_VNG = 62,
             COLOR_BayerGB2BGR_VNG = 63,
             COLOR_BayerRG2BGR_VNG = 64,
             COLOR_BayerGR2BGR_VNG = 65,
+            COLOR_BayerRGGB2BGR_VNG = COLOR_BayerBG2BGR_VNG,
+            COLOR_BayerGRBG2BGR_VNG = COLOR_BayerGB2BGR_VNG,
+            COLOR_BayerBGGR2BGR_VNG = COLOR_BayerRG2BGR_VNG,
+            COLOR_BayerGBRG2BGR_VNG = COLOR_BayerGR2BGR_VNG,
+            COLOR_BayerRGGB2RGB_VNG = COLOR_BayerBGGR2BGR_VNG,
+            COLOR_BayerGRBG2RGB_VNG = COLOR_BayerGBRG2BGR_VNG,
+            COLOR_BayerBGGR2RGB_VNG = COLOR_BayerRGGB2BGR_VNG,
+            COLOR_BayerGBRG2RGB_VNG = COLOR_BayerGRBG2BGR_VNG,
             COLOR_BayerBG2RGB_VNG = COLOR_BayerRG2BGR_VNG,
             COLOR_BayerGB2RGB_VNG = COLOR_BayerGR2BGR_VNG,
             COLOR_BayerRG2RGB_VNG = COLOR_BayerBG2BGR_VNG,
@@ -327,6 +347,14 @@ public class Imgproc {
             COLOR_BayerGB2BGR_EA = 136,
             COLOR_BayerRG2BGR_EA = 137,
             COLOR_BayerGR2BGR_EA = 138,
+            COLOR_BayerRGGB2BGR_EA = COLOR_BayerBG2BGR_EA,
+            COLOR_BayerGRBG2BGR_EA = COLOR_BayerGB2BGR_EA,
+            COLOR_BayerBGGR2BGR_EA = COLOR_BayerRG2BGR_EA,
+            COLOR_BayerGBRG2BGR_EA = COLOR_BayerGR2BGR_EA,
+            COLOR_BayerRGGB2RGB_EA = COLOR_BayerBGGR2BGR_EA,
+            COLOR_BayerGRBG2RGB_EA = COLOR_BayerGBRG2BGR_EA,
+            COLOR_BayerBGGR2RGB_EA = COLOR_BayerRGGB2BGR_EA,
+            COLOR_BayerGBRG2RGB_EA = COLOR_BayerGRBG2BGR_EA,
             COLOR_BayerBG2RGB_EA = COLOR_BayerRG2BGR_EA,
             COLOR_BayerGB2RGB_EA = COLOR_BayerGR2BGR_EA,
             COLOR_BayerRG2RGB_EA = COLOR_BayerBG2BGR_EA,
@@ -335,6 +363,14 @@ public class Imgproc {
             COLOR_BayerGB2BGRA = 140,
             COLOR_BayerRG2BGRA = 141,
             COLOR_BayerGR2BGRA = 142,
+            COLOR_BayerRGGB2BGRA = COLOR_BayerBG2BGRA,
+            COLOR_BayerGRBG2BGRA = COLOR_BayerGB2BGRA,
+            COLOR_BayerBGGR2BGRA = COLOR_BayerRG2BGRA,
+            COLOR_BayerGBRG2BGRA = COLOR_BayerGR2BGRA,
+            COLOR_BayerRGGB2RGBA = COLOR_BayerBGGR2BGRA,
+            COLOR_BayerGRBG2RGBA = COLOR_BayerGBRG2BGRA,
+            COLOR_BayerBGGR2RGBA = COLOR_BayerRGGB2BGRA,
+            COLOR_BayerGBRG2RGBA = COLOR_BayerGRBG2BGRA,
             COLOR_BayerBG2RGBA = COLOR_BayerRG2BGRA,
             COLOR_BayerGB2RGBA = COLOR_BayerGR2BGRA,
             COLOR_BayerRG2RGBA = COLOR_BayerBG2BGRA,
@@ -370,9 +406,13 @@ public class Imgproc {
 
     // C++: enum ConnectedComponentsAlgorithmsTypes (cv.ConnectedComponentsAlgorithmsTypes)
     public static final int
-            CCL_WU = 0,
             CCL_DEFAULT = -1,
-            CCL_GRANA = 1;
+            CCL_WU = 0,
+            CCL_GRANA = 1,
+            CCL_BOLELLI = 2,
+            CCL_SAUF = 3,
+            CCL_BBDT = 4,
+            CCL_SPAGHETTI = 5;
 
 
     // C++: enum ConnectedComponentsTypes (cv.ConnectedComponentsTypes)
@@ -597,7 +637,7 @@ public class Imgproc {
 
 
     //
-    // C++:  Ptr_LineSegmentDetector cv::createLineSegmentDetector(int _refine = LSD_REFINE_STD, double _scale = 0.8, double _sigma_scale = 0.6, double _quant = 2.0, double _ang_th = 22.5, double _log_eps = 0, double _density_th = 0.7, int _n_bins = 1024)
+    // C++:  Ptr_LineSegmentDetector cv::createLineSegmentDetector(int refine = LSD_REFINE_STD, double scale = 0.8, double sigma_scale = 0.6, double quant = 2.0, double ang_th = 22.5, double log_eps = 0, double density_th = 0.7, int n_bins = 1024)
     //
 
     /**
@@ -606,21 +646,18 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * @param _quant Bound to the quantization error on the gradient norm.
-     * @param _ang_th Gradient angle tolerance in degrees.
-     * @param _log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement
-     * is chosen.
-     * @param _density_th Minimal density of aligned region points in the enclosing rectangle.
-     * @param _n_bins Number of bins in pseudo-ordering of gradient modulus.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
+     * @param quant Bound to the quantization error on the gradient norm.
+     * @param ang_th Gradient angle tolerance in degrees.
+     * @param log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement is chosen.
+     * @param density_th Minimal density of aligned region points in the enclosing rectangle.
+     * @param n_bins Number of bins in pseudo-ordering of gradient modulus.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps, double _density_th, int _n_bins) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_0(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps, _density_th, _n_bins));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th, int n_bins) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_0(refine, scale, sigma_scale, quant, ang_th, log_eps, density_th, n_bins));
     }
 
     /**
@@ -629,20 +666,17 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * @param _quant Bound to the quantization error on the gradient norm.
-     * @param _ang_th Gradient angle tolerance in degrees.
-     * @param _log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement
-     * is chosen.
-     * @param _density_th Minimal density of aligned region points in the enclosing rectangle.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
+     * @param quant Bound to the quantization error on the gradient norm.
+     * @param ang_th Gradient angle tolerance in degrees.
+     * @param log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement is chosen.
+     * @param density_th Minimal density of aligned region points in the enclosing rectangle.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps, double _density_th) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_1(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps, _density_th));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_1(refine, scale, sigma_scale, quant, ang_th, log_eps, density_th));
     }
 
     /**
@@ -651,19 +685,16 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * @param _quant Bound to the quantization error on the gradient norm.
-     * @param _ang_th Gradient angle tolerance in degrees.
-     * @param _log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
+     * @param quant Bound to the quantization error on the gradient norm.
+     * @param ang_th Gradient angle tolerance in degrees.
+     * @param log_eps Detection threshold: -log10(NFA) &gt; log_eps. Used only when advance refinement is chosen.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_2(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_2(refine, scale, sigma_scale, quant, ang_th, log_eps));
     }
 
     /**
@@ -672,18 +703,15 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * @param _quant Bound to the quantization error on the gradient norm.
-     * @param _ang_th Gradient angle tolerance in degrees.
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
+     * @param quant Bound to the quantization error on the gradient norm.
+     * @param ang_th Gradient angle tolerance in degrees.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_3(_refine, _scale, _sigma_scale, _quant, _ang_th));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale, double quant, double ang_th) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_3(refine, scale, sigma_scale, quant, ang_th));
     }
 
     /**
@@ -692,17 +720,14 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * @param _quant Bound to the quantization error on the gradient norm.
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
+     * @param quant Bound to the quantization error on the gradient norm.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_4(_refine, _scale, _sigma_scale, _quant));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale, double quant) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_4(refine, scale, sigma_scale, quant));
     }
 
     /**
@@ -711,16 +736,13 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
+     * @param sigma_scale Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_5(_refine, _scale, _sigma_scale));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale, double sigma_scale) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_5(refine, scale, sigma_scale));
     }
 
     /**
@@ -729,15 +751,12 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * @param _scale The scale of the image that will be used to find the lines. Range (0..1].
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
+     * @param scale The scale of the image that will be used to find the lines. Range (0..1].
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_6(_refine, _scale));
+    public static LineSegmentDetector createLineSegmentDetector(int refine, double scale) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_6(refine, scale));
     }
 
     /**
@@ -746,14 +765,11 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
+     * @param refine The way found lines will be refined, see #LineSegmentDetectorModes
      * @return automatically generated
      */
-    public static LineSegmentDetector createLineSegmentDetector(int _refine) {
-        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_7(_refine));
+    public static LineSegmentDetector createLineSegmentDetector(int refine) {
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_7(refine));
     }
 
     /**
@@ -762,9 +778,6 @@ public class Imgproc {
      * The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
      * to edit those, as to tailor it for their own application.
      *
-     * is chosen.
-     *
-     * <b>Note:</b> Implementation has been removed due original code license conflict
      * @return automatically generated
      */
     public static LineSegmentDetector createLineSegmentDetector() {
@@ -1296,7 +1309,7 @@ public class Imgproc {
      * variance and standard deviation around the neighborhood of a pixel.
      *
      * @param src input image
-     * @param dst output image of the same size and type as _src
+     * @param dst output image of the same size and type as src
      * @param ddepth the output image depth (-1 to use src.depth())
      * @param ksize kernel size
      * @param anchor kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel
@@ -1319,7 +1332,7 @@ public class Imgproc {
      * variance and standard deviation around the neighborhood of a pixel.
      *
      * @param src input image
-     * @param dst output image of the same size and type as _src
+     * @param dst output image of the same size and type as src
      * @param ddepth the output image depth (-1 to use src.depth())
      * @param ksize kernel size
      * @param anchor kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel
@@ -1341,7 +1354,7 @@ public class Imgproc {
      * variance and standard deviation around the neighborhood of a pixel.
      *
      * @param src input image
-     * @param dst output image of the same size and type as _src
+     * @param dst output image of the same size and type as src
      * @param ddepth the output image depth (-1 to use src.depth())
      * @param ksize kernel size
      * @param anchor kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel
@@ -1362,7 +1375,7 @@ public class Imgproc {
      * variance and standard deviation around the neighborhood of a pixel.
      *
      * @param src input image
-     * @param dst output image of the same size and type as _src
+     * @param dst output image of the same size and type as src
      * @param ddepth the output image depth (-1 to use src.depth())
      * @param ksize kernel size
      * center.
@@ -2944,6 +2957,151 @@ public class Imgproc {
 
 
     //
+    // C++:  void cv::goodFeaturesToTrack(Mat image, Mat& corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat& cornersQuality, int blockSize = 3, int gradientSize = 3, bool useHarrisDetector = false, double k = 0.04)
+    //
+
+    /**
+     * Same as above, but returns also quality measure of the detected corners.
+     *
+     * @param image Input 8-bit or floating-point 32-bit, single-channel image.
+     * @param corners Output vector of detected corners.
+     * @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+     * the strongest of them is returned. {@code maxCorners &lt;= 0} implies that no limit on the maximum is set
+     * and all detected corners are returned.
+     * @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+     * parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+     * (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+     * quality measure less than the product are rejected. For example, if the best corner has the
+     * quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+     * less than 15 are rejected.
+     * @param minDistance Minimum possible Euclidean distance between the returned corners.
+     * @param mask Region of interest. If the image is not empty (it needs to have the type
+     * CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+     * @param cornersQuality Output vector of quality measure of the detected corners.
+     * @param blockSize Size of an average block for computing a derivative covariation matrix over each
+     * pixel neighborhood. See cornerEigenValsAndVecs .
+     * @param gradientSize Aperture parameter for the Sobel operator used for derivatives computation.
+     * See cornerEigenValsAndVecs .
+     * @param useHarrisDetector Parameter indicating whether to use a Harris detector (see #cornerHarris)
+     * or #cornerMinEigenVal.
+     * @param k Free parameter of the Harris detector.
+     */
+    public static void goodFeaturesToTrackWithQuality(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize, boolean useHarrisDetector, double k) {
+        goodFeaturesToTrackWithQuality_0(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, cornersQuality.nativeObj, blockSize, gradientSize, useHarrisDetector, k);
+    }
+
+    /**
+     * Same as above, but returns also quality measure of the detected corners.
+     *
+     * @param image Input 8-bit or floating-point 32-bit, single-channel image.
+     * @param corners Output vector of detected corners.
+     * @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+     * the strongest of them is returned. {@code maxCorners &lt;= 0} implies that no limit on the maximum is set
+     * and all detected corners are returned.
+     * @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+     * parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+     * (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+     * quality measure less than the product are rejected. For example, if the best corner has the
+     * quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+     * less than 15 are rejected.
+     * @param minDistance Minimum possible Euclidean distance between the returned corners.
+     * @param mask Region of interest. If the image is not empty (it needs to have the type
+     * CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+     * @param cornersQuality Output vector of quality measure of the detected corners.
+     * @param blockSize Size of an average block for computing a derivative covariation matrix over each
+     * pixel neighborhood. See cornerEigenValsAndVecs .
+     * @param gradientSize Aperture parameter for the Sobel operator used for derivatives computation.
+     * See cornerEigenValsAndVecs .
+     * @param useHarrisDetector Parameter indicating whether to use a Harris detector (see #cornerHarris)
+     * or #cornerMinEigenVal.
+     */
+    public static void goodFeaturesToTrackWithQuality(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize, boolean useHarrisDetector) {
+        goodFeaturesToTrackWithQuality_1(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, cornersQuality.nativeObj, blockSize, gradientSize, useHarrisDetector);
+    }
+
+    /**
+     * Same as above, but returns also quality measure of the detected corners.
+     *
+     * @param image Input 8-bit or floating-point 32-bit, single-channel image.
+     * @param corners Output vector of detected corners.
+     * @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+     * the strongest of them is returned. {@code maxCorners &lt;= 0} implies that no limit on the maximum is set
+     * and all detected corners are returned.
+     * @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+     * parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+     * (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+     * quality measure less than the product are rejected. For example, if the best corner has the
+     * quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+     * less than 15 are rejected.
+     * @param minDistance Minimum possible Euclidean distance between the returned corners.
+     * @param mask Region of interest. If the image is not empty (it needs to have the type
+     * CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+     * @param cornersQuality Output vector of quality measure of the detected corners.
+     * @param blockSize Size of an average block for computing a derivative covariation matrix over each
+     * pixel neighborhood. See cornerEigenValsAndVecs .
+     * @param gradientSize Aperture parameter for the Sobel operator used for derivatives computation.
+     * See cornerEigenValsAndVecs .
+     * or #cornerMinEigenVal.
+     */
+    public static void goodFeaturesToTrackWithQuality(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize) {
+        goodFeaturesToTrackWithQuality_2(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, cornersQuality.nativeObj, blockSize, gradientSize);
+    }
+
+    /**
+     * Same as above, but returns also quality measure of the detected corners.
+     *
+     * @param image Input 8-bit or floating-point 32-bit, single-channel image.
+     * @param corners Output vector of detected corners.
+     * @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+     * the strongest of them is returned. {@code maxCorners &lt;= 0} implies that no limit on the maximum is set
+     * and all detected corners are returned.
+     * @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+     * parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+     * (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+     * quality measure less than the product are rejected. For example, if the best corner has the
+     * quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+     * less than 15 are rejected.
+     * @param minDistance Minimum possible Euclidean distance between the returned corners.
+     * @param mask Region of interest. If the image is not empty (it needs to have the type
+     * CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+     * @param cornersQuality Output vector of quality measure of the detected corners.
+     * @param blockSize Size of an average block for computing a derivative covariation matrix over each
+     * pixel neighborhood. See cornerEigenValsAndVecs .
+     * See cornerEigenValsAndVecs .
+     * or #cornerMinEigenVal.
+     */
+    public static void goodFeaturesToTrackWithQuality(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize) {
+        goodFeaturesToTrackWithQuality_3(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, cornersQuality.nativeObj, blockSize);
+    }
+
+    /**
+     * Same as above, but returns also quality measure of the detected corners.
+     *
+     * @param image Input 8-bit or floating-point 32-bit, single-channel image.
+     * @param corners Output vector of detected corners.
+     * @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+     * the strongest of them is returned. {@code maxCorners &lt;= 0} implies that no limit on the maximum is set
+     * and all detected corners are returned.
+     * @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+     * parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+     * (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+     * quality measure less than the product are rejected. For example, if the best corner has the
+     * quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+     * less than 15 are rejected.
+     * @param minDistance Minimum possible Euclidean distance between the returned corners.
+     * @param mask Region of interest. If the image is not empty (it needs to have the type
+     * CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+     * @param cornersQuality Output vector of quality measure of the detected corners.
+     * pixel neighborhood. See cornerEigenValsAndVecs .
+     * See cornerEigenValsAndVecs .
+     * or #cornerMinEigenVal.
+     */
+    public static void goodFeaturesToTrackWithQuality(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality) {
+        goodFeaturesToTrackWithQuality_4(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, cornersQuality.nativeObj);
+    }
+
+
+    //
     // C++:  void cv::HoughLines(Mat image, Mat& lines, double rho, double theta, int threshold, double srn = 0, double stn = 0, double min_theta = 0, double max_theta = CV_PI)
     //
 
@@ -3195,7 +3353,7 @@ public class Imgproc {
 
 
     //
-    // C++:  void cv::HoughLinesPointSet(Mat _point, Mat& _lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
+    // C++:  void cv::HoughLinesPointSet(Mat point, Mat& lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
     //
 
     /**
@@ -3203,21 +3361,21 @@ public class Imgproc {
      *
      * The function finds lines in a set of points using a modification of the Hough transform.
      * INCLUDE: snippets/imgproc_HoughLinesPointSet.cpp
-     * @param _point Input vector of points. Each vector must be encoded as a Point vector \((x,y)\). Type must be CV_32FC2 or CV_32SC2.
-     * @param _lines Output vector of found lines. Each vector is encoded as a vector&lt;Vec3d&gt; \((votes, rho, theta)\).
+     * @param point Input vector of points. Each vector must be encoded as a Point vector \((x,y)\). Type must be CV_32FC2 or CV_32SC2.
+     * @param lines Output vector of found lines. Each vector is encoded as a vector&lt;Vec3d&gt; \((votes, rho, theta)\).
      * The larger the value of 'votes', the higher the reliability of the Hough line.
-     * @param lines_max Max count of hough lines.
+     * @param lines_max Max count of Hough lines.
      * @param threshold Accumulator threshold parameter. Only those lines are returned that get enough
-     * votes ( \(&gt;\texttt{threshold}\) )
-     * @param min_rho Minimum Distance value of the accumulator in pixels.
-     * @param max_rho Maximum Distance value of the accumulator in pixels.
-     * @param rho_step Distance resolution of the accumulator in pixels.
+     * votes ( \(&gt;\texttt{threshold}\) ).
+     * @param min_rho Minimum value for \(\rho\) for the accumulator (Note: \(\rho\) can be negative. The absolute value \(|\rho|\) is the distance of a line to the origin.).
+     * @param max_rho Maximum value for \(\rho\) for the accumulator.
+     * @param rho_step Distance resolution of the accumulator.
      * @param min_theta Minimum angle value of the accumulator in radians.
      * @param max_theta Maximum angle value of the accumulator in radians.
      * @param theta_step Angle resolution of the accumulator in radians.
      */
-    public static void HoughLinesPointSet(Mat _point, Mat _lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step) {
-        HoughLinesPointSet_0(_point.nativeObj, _lines.nativeObj, lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step);
+    public static void HoughLinesPointSet(Mat point, Mat lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step) {
+        HoughLinesPointSet_0(point.nativeObj, lines.nativeObj, lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step);
     }
 
 
@@ -3879,7 +4037,7 @@ public class Imgproc {
      * @param src input image.
      * @param dst output image; it has the size dsize (when it is non-zero) or the size computed from
      * src.size(), fx, and fy; the type of dst is the same as of src.
-     * @param dsize output image size; if it equals zero, it is computed as:
+     * @param dsize output image size; if it equals zero ({@code None} in Python), it is computed as:
      *  \(\texttt{dsize = Size(round(fx*src.cols), round(fy*src.rows))}\)
      *  Either dsize or both fx and fy must be non-zero.
      * @param fx scale factor along the horizontal axis; when it equals 0, it is computed as
@@ -3918,7 +4076,7 @@ public class Imgproc {
      * @param src input image.
      * @param dst output image; it has the size dsize (when it is non-zero) or the size computed from
      * src.size(), fx, and fy; the type of dst is the same as of src.
-     * @param dsize output image size; if it equals zero, it is computed as:
+     * @param dsize output image size; if it equals zero ({@code None} in Python), it is computed as:
      *  \(\texttt{dsize = Size(round(fx*src.cols), round(fy*src.rows))}\)
      *  Either dsize or both fx and fy must be non-zero.
      * @param fx scale factor along the horizontal axis; when it equals 0, it is computed as
@@ -3956,7 +4114,7 @@ public class Imgproc {
      * @param src input image.
      * @param dst output image; it has the size dsize (when it is non-zero) or the size computed from
      * src.size(), fx, and fy; the type of dst is the same as of src.
-     * @param dsize output image size; if it equals zero, it is computed as:
+     * @param dsize output image size; if it equals zero ({@code None} in Python), it is computed as:
      *  \(\texttt{dsize = Size(round(fx*src.cols), round(fy*src.rows))}\)
      *  Either dsize or both fx and fy must be non-zero.
      * @param fx scale factor along the horizontal axis; when it equals 0, it is computed as
@@ -3993,7 +4151,7 @@ public class Imgproc {
      * @param src input image.
      * @param dst output image; it has the size dsize (when it is non-zero) or the size computed from
      * src.size(), fx, and fy; the type of dst is the same as of src.
-     * @param dsize output image size; if it equals zero, it is computed as:
+     * @param dsize output image size; if it equals zero ({@code None} in Python), it is computed as:
      *  \(\texttt{dsize = Size(round(fx*src.cols), round(fy*src.rows))}\)
      *  Either dsize or both fx and fy must be non-zero.
      * \(\texttt{(double)dsize.width/src.cols}\)
@@ -4838,36 +4996,6 @@ public class Imgproc {
 
 
     //
-    // C++:  void cv::integral(Mat src, Mat& sum, int sdepth = -1)
-    //
-
-    public static void integral(Mat src, Mat sum, int sdepth) {
-        integral_0(src.nativeObj, sum.nativeObj, sdepth);
-    }
-
-    public static void integral(Mat src, Mat sum) {
-        integral_1(src.nativeObj, sum.nativeObj);
-    }
-
-
-    //
-    // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, int sdepth = -1, int sqdepth = -1)
-    //
-
-    public static void integral2(Mat src, Mat sum, Mat sqsum, int sdepth, int sqdepth) {
-        integral2_0(src.nativeObj, sum.nativeObj, sqsum.nativeObj, sdepth, sqdepth);
-    }
-
-    public static void integral2(Mat src, Mat sum, Mat sqsum, int sdepth) {
-        integral2_1(src.nativeObj, sum.nativeObj, sqsum.nativeObj, sdepth);
-    }
-
-    public static void integral2(Mat src, Mat sum, Mat sqsum) {
-        integral2_2(src.nativeObj, sum.nativeObj, sqsum.nativeObj);
-    }
-
-
-    //
     // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, Mat& tilted, int sdepth = -1, int sqdepth = -1)
     //
 
@@ -4983,6 +5111,36 @@ public class Imgproc {
      */
     public static void integral3(Mat src, Mat sum, Mat sqsum, Mat tilted) {
         integral3_2(src.nativeObj, sum.nativeObj, sqsum.nativeObj, tilted.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::integral(Mat src, Mat& sum, int sdepth = -1)
+    //
+
+    public static void integral(Mat src, Mat sum, int sdepth) {
+        integral_0(src.nativeObj, sum.nativeObj, sdepth);
+    }
+
+    public static void integral(Mat src, Mat sum) {
+        integral_1(src.nativeObj, sum.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, int sdepth = -1, int sqdepth = -1)
+    //
+
+    public static void integral2(Mat src, Mat sum, Mat sqsum, int sdepth, int sqdepth) {
+        integral2_0(src.nativeObj, sum.nativeObj, sqsum.nativeObj, sdepth, sqdepth);
+    }
+
+    public static void integral2(Mat src, Mat sum, Mat sqsum, int sdepth) {
+        integral2_1(src.nativeObj, sum.nativeObj, sqsum.nativeObj, sdepth);
+    }
+
+    public static void integral2(Mat src, Mat sum, Mat sqsum) {
+        integral2_2(src.nativeObj, sum.nativeObj, sqsum.nativeObj);
     }
 
 
@@ -5365,6 +5523,46 @@ public class Imgproc {
      */
     public static void createHanningWindow(Mat dst, Size winSize, int type) {
         createHanningWindow_0(dst.nativeObj, winSize.width, winSize.height, type);
+    }
+
+
+    //
+    // C++:  void cv::divSpectrums(Mat a, Mat b, Mat& c, int flags, bool conjB = false)
+    //
+
+    /**
+     * Performs the per-element division of the first Fourier spectrum by the second Fourier spectrum.
+     *
+     * The function cv::divSpectrums performs the per-element division of the first array by the second array.
+     * The arrays are CCS-packed or complex matrices that are results of a real or complex Fourier transform.
+     *
+     * @param a first input array.
+     * @param b second input array of the same size and type as src1 .
+     * @param c output array of the same size and type as src1 .
+     * @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
+     * each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a {@code 0} as value.
+     * @param conjB optional flag that conjugates the second input array before the multiplication (true)
+     * or not (false).
+     */
+    public static void divSpectrums(Mat a, Mat b, Mat c, int flags, boolean conjB) {
+        divSpectrums_0(a.nativeObj, b.nativeObj, c.nativeObj, flags, conjB);
+    }
+
+    /**
+     * Performs the per-element division of the first Fourier spectrum by the second Fourier spectrum.
+     *
+     * The function cv::divSpectrums performs the per-element division of the first array by the second array.
+     * The arrays are CCS-packed or complex matrices that are results of a real or complex Fourier transform.
+     *
+     * @param a first input array.
+     * @param b second input array of the same size and type as src1 .
+     * @param c output array of the same size and type as src1 .
+     * @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
+     * each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a {@code 0} as value.
+     * or not (false).
+     */
+    public static void divSpectrums(Mat a, Mat b, Mat c, int flags) {
+        divSpectrums_1(a.nativeObj, b.nativeObj, c.nativeObj, flags);
     }
 
 
@@ -5864,8 +6062,6 @@ public class Imgproc {
      * size as image .
      *
      * SEE: findContours
-     *
-     *  imgproc_misc
      */
     public static void watershed(Mat image, Mat markers) {
         watershed_0(image.nativeObj, markers.nativeObj);
@@ -6732,6 +6928,25 @@ public class Imgproc {
 
 
     //
+    // C++:  void cv::blendLinear(Mat src1, Mat src2, Mat weights1, Mat weights2, Mat& dst)
+    //
+
+    /**
+     *
+     *
+     * variant without {@code mask} parameter
+     * @param src1 automatically generated
+     * @param src2 automatically generated
+     * @param weights1 automatically generated
+     * @param weights2 automatically generated
+     * @param dst automatically generated
+     */
+    public static void blendLinear(Mat src1, Mat src2, Mat weights1, Mat weights2, Mat dst) {
+        blendLinear_0(src1.nativeObj, src2.nativeObj, weights1.nativeObj, weights2.nativeObj, dst.nativeObj);
+    }
+
+
+    //
     // C++:  void cv::cvtColor(Mat src, Mat& dst, int code, int dstCn = 0)
     //
 
@@ -7131,9 +7346,10 @@ public class Imgproc {
      * represents the background label. ltype specifies the output label image type, an important
      * consideration based on the total number of labels or alternatively the total number of pixels in
      * the source image. ccltype specifies the connected components labeling algorithm to use, currently
-     * Grana (BBDT) and Wu's (SAUF) CITE: Wu2009 algorithms are supported, see the #ConnectedComponentsAlgorithmsTypes
-     * for details. Note that SAUF algorithm forces a row major ordering of labels while BBDT does not.
-     * This function uses parallel version of both Grana and Wu's algorithms if at least one allowed
+     * Bolelli (Spaghetti) CITE: Bolelli2019, Grana (BBDT) CITE: Grana2010 and Wu's (SAUF) CITE: Wu2009 algorithms
+     * are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
+     * a row major ordering of labels while Spaghetti and BBDT do not.
+     * This function uses parallel version of the algorithms if at least one allowed
      * parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
      *
      * @param image the 8-bit single-channel image to be labeled
@@ -7200,9 +7416,10 @@ public class Imgproc {
      * represents the background label. ltype specifies the output label image type, an important
      * consideration based on the total number of labels or alternatively the total number of pixels in
      * the source image. ccltype specifies the connected components labeling algorithm to use, currently
-     * Grana's (BBDT) and Wu's (SAUF) CITE: Wu2009 algorithms are supported, see the #ConnectedComponentsAlgorithmsTypes
-     * for details. Note that SAUF algorithm forces a row major ordering of labels while BBDT does not.
-     * This function uses parallel version of both Grana and Wu's algorithms (statistics included) if at least one allowed
+     * Bolelli (Spaghetti) CITE: Bolelli2019, Grana (BBDT) CITE: Grana2010 and Wu's (SAUF) CITE: Wu2009 algorithms
+     * are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
+     * a row major ordering of labels while Spaghetti and BBDT do not.
+     * This function uses parallel version of the algorithms (statistics included) if at least one allowed
      * parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
      *
      * @param image the 8-bit single-channel image to be labeled
@@ -7299,6 +7516,7 @@ public class Imgproc {
      * in contours of the next and previous contours at the same hierarchical level, the first child
      * contour and the parent contour, respectively. If for the contour i there are no next, previous,
      * parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.
+     * <b>Note:</b> In Python, hierarchy is nested inside a top level array. Use hierarchy[0][i] to access hierarchical elements of i-th contour.
      * @param mode Contour retrieval mode, see #RetrievalModes
      * @param method Contour approximation method, see #ContourApproximationModes
      * @param offset Optional offset by which every contour point is shifted. This is useful if the
@@ -7332,6 +7550,7 @@ public class Imgproc {
      * in contours of the next and previous contours at the same hierarchical level, the first child
      * contour and the parent contour, respectively. If for the contour i there are no next, previous,
      * parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.
+     * <b>Note:</b> In Python, hierarchy is nested inside a top level array. Use hierarchy[0][i] to access hierarchical elements of i-th contour.
      * @param mode Contour retrieval mode, see #RetrievalModes
      * @param method Contour approximation method, see #ContourApproximationModes
      * contours are extracted from the image ROI and then they should be analyzed in the whole image
@@ -7715,15 +7934,15 @@ public class Imgproc {
 
 
     //
-    // C++:  float cv::intersectConvexConvex(Mat _p1, Mat _p2, Mat& _p12, bool handleNested = true)
+    // C++:  float cv::intersectConvexConvex(Mat p1, Mat p2, Mat& p12, bool handleNested = true)
     //
 
     /**
      * Finds intersection of two convex polygons
      *
-     * @param _p1 First polygon
-     * @param _p2 Second polygon
-     * @param _p12 Output polygon describing the intersecting area
+     * @param p1 First polygon
+     * @param p2 Second polygon
+     * @param p12 Output polygon describing the intersecting area
      * @param handleNested When true, an intersection is found if one of the polygons is fully enclosed in the other.
      * When false, no intersection is found. If the polygons share a side or the vertex of one polygon lies on an edge
      * of the other, they are not considered nested and an intersection will be found regardless of the value of handleNested.
@@ -7732,16 +7951,16 @@ public class Imgproc {
      *
      * <b>Note:</b> intersectConvexConvex doesn't confirm that both polygons are convex and will return invalid results if they aren't.
      */
-    public static float intersectConvexConvex(Mat _p1, Mat _p2, Mat _p12, boolean handleNested) {
-        return intersectConvexConvex_0(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj, handleNested);
+    public static float intersectConvexConvex(Mat p1, Mat p2, Mat p12, boolean handleNested) {
+        return intersectConvexConvex_0(p1.nativeObj, p2.nativeObj, p12.nativeObj, handleNested);
     }
 
     /**
      * Finds intersection of two convex polygons
      *
-     * @param _p1 First polygon
-     * @param _p2 Second polygon
-     * @param _p12 Output polygon describing the intersecting area
+     * @param p1 First polygon
+     * @param p2 Second polygon
+     * @param p12 Output polygon describing the intersecting area
      * When false, no intersection is found. If the polygons share a side or the vertex of one polygon lies on an edge
      * of the other, they are not considered nested and an intersection will be found regardless of the value of handleNested.
      *
@@ -7749,8 +7968,8 @@ public class Imgproc {
      *
      * <b>Note:</b> intersectConvexConvex doesn't confirm that both polygons are convex and will return invalid results if they aren't.
      */
-    public static float intersectConvexConvex(Mat _p1, Mat _p2, Mat _p12) {
-        return intersectConvexConvex_1(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj);
+    public static float intersectConvexConvex(Mat p1, Mat p2, Mat p12) {
+        return intersectConvexConvex_1(p1.nativeObj, p2.nativeObj, p12.nativeObj);
     }
 
 
@@ -8128,7 +8347,7 @@ public class Imgproc {
     //
 
     /**
-     * Draws a arrow segment pointing from the first point to the second one.
+     * Draws an arrow segment pointing from the first point to the second one.
      *
      * The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
      *
@@ -8146,7 +8365,7 @@ public class Imgproc {
     }
 
     /**
-     * Draws a arrow segment pointing from the first point to the second one.
+     * Draws an arrow segment pointing from the first point to the second one.
      *
      * The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
      *
@@ -8163,7 +8382,7 @@ public class Imgproc {
     }
 
     /**
-     * Draws a arrow segment pointing from the first point to the second one.
+     * Draws an arrow segment pointing from the first point to the second one.
      *
      * The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
      *
@@ -8179,7 +8398,7 @@ public class Imgproc {
     }
 
     /**
-     * Draws a arrow segment pointing from the first point to the second one.
+     * Draws an arrow segment pointing from the first point to the second one.
      *
      * The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
      *
@@ -8194,7 +8413,7 @@ public class Imgproc {
     }
 
     /**
-     * Draws a arrow segment pointing from the first point to the second one.
+     * Draws an arrow segment pointing from the first point to the second one.
      *
      * The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
      *
@@ -8906,7 +9125,7 @@ public class Imgproc {
      * @param offset Optional contour shift parameter. Shift all the drawn contours by the specified
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -8940,7 +9159,7 @@ public class Imgproc {
      * parameter is only taken into account when there is hierarchy available.
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -8973,7 +9192,7 @@ public class Imgproc {
      * parameter is only taken into account when there is hierarchy available.
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -9005,7 +9224,7 @@ public class Imgproc {
      * parameter is only taken into account when there is hierarchy available.
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -9036,7 +9255,7 @@ public class Imgproc {
      * parameter is only taken into account when there is hierarchy available.
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -9066,7 +9285,7 @@ public class Imgproc {
      * parameter is only taken into account when there is hierarchy available.
      * \(\texttt{offset}=(dx,dy)\) .
      * <b>Note:</b> When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-     * even when no hierarchy date is provided. This is done by analyzing all the outlines together
+     * even when no hierarchy data is provided. This is done by analyzing all the outlines together
      * using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
      * contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
      * of contours, or iterate over the collection using contourIdx parameter.
@@ -9243,6 +9462,101 @@ public class Imgproc {
     }
 
 
+    //
+    // C++:  void cv::HoughLinesWithAccumulator(Mat image, Mat& lines, double rho, double theta, int threshold, double srn = 0, double stn = 0, double min_theta = 0, double max_theta = CV_PI)
+    //
+
+    /**
+     * Finds lines in a binary image using the standard Hough transform and get accumulator.
+     *
+     * <b>Note:</b> This function is for bindings use only. Use original function in C++ code
+     *
+     * SEE: HoughLines
+     * @param image automatically generated
+     * @param lines automatically generated
+     * @param rho automatically generated
+     * @param theta automatically generated
+     * @param threshold automatically generated
+     * @param srn automatically generated
+     * @param stn automatically generated
+     * @param min_theta automatically generated
+     * @param max_theta automatically generated
+     */
+    public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta) {
+        HoughLinesWithAccumulator_0(image.nativeObj, lines.nativeObj, rho, theta, threshold, srn, stn, min_theta, max_theta);
+    }
+
+    /**
+     * Finds lines in a binary image using the standard Hough transform and get accumulator.
+     *
+     * <b>Note:</b> This function is for bindings use only. Use original function in C++ code
+     *
+     * SEE: HoughLines
+     * @param image automatically generated
+     * @param lines automatically generated
+     * @param rho automatically generated
+     * @param theta automatically generated
+     * @param threshold automatically generated
+     * @param srn automatically generated
+     * @param stn automatically generated
+     * @param min_theta automatically generated
+     */
+    public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta) {
+        HoughLinesWithAccumulator_1(image.nativeObj, lines.nativeObj, rho, theta, threshold, srn, stn, min_theta);
+    }
+
+    /**
+     * Finds lines in a binary image using the standard Hough transform and get accumulator.
+     *
+     * <b>Note:</b> This function is for bindings use only. Use original function in C++ code
+     *
+     * SEE: HoughLines
+     * @param image automatically generated
+     * @param lines automatically generated
+     * @param rho automatically generated
+     * @param theta automatically generated
+     * @param threshold automatically generated
+     * @param srn automatically generated
+     * @param stn automatically generated
+     */
+    public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn) {
+        HoughLinesWithAccumulator_2(image.nativeObj, lines.nativeObj, rho, theta, threshold, srn, stn);
+    }
+
+    /**
+     * Finds lines in a binary image using the standard Hough transform and get accumulator.
+     *
+     * <b>Note:</b> This function is for bindings use only. Use original function in C++ code
+     *
+     * SEE: HoughLines
+     * @param image automatically generated
+     * @param lines automatically generated
+     * @param rho automatically generated
+     * @param theta automatically generated
+     * @param threshold automatically generated
+     * @param srn automatically generated
+     */
+    public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn) {
+        HoughLinesWithAccumulator_3(image.nativeObj, lines.nativeObj, rho, theta, threshold, srn);
+    }
+
+    /**
+     * Finds lines in a binary image using the standard Hough transform and get accumulator.
+     *
+     * <b>Note:</b> This function is for bindings use only. Use original function in C++ code
+     *
+     * SEE: HoughLines
+     * @param image automatically generated
+     * @param lines automatically generated
+     * @param rho automatically generated
+     * @param theta automatically generated
+     * @param threshold automatically generated
+     */
+    public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold) {
+        HoughLinesWithAccumulator_4(image.nativeObj, lines.nativeObj, rho, theta, threshold);
+    }
+
+
 
 // C++: Size getTextSize(const String& text, int fontFace, double fontScale, int thickness, int* baseLine);
 //javadoc:getTextSize(text, fontFace, fontScale, thickness, baseLine)
@@ -9256,15 +9570,15 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
 
 
 
-    // C++:  Ptr_LineSegmentDetector cv::createLineSegmentDetector(int _refine = LSD_REFINE_STD, double _scale = 0.8, double _sigma_scale = 0.6, double _quant = 2.0, double _ang_th = 22.5, double _log_eps = 0, double _density_th = 0.7, int _n_bins = 1024)
-    private static native long createLineSegmentDetector_0(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps, double _density_th, int _n_bins);
-    private static native long createLineSegmentDetector_1(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps, double _density_th);
-    private static native long createLineSegmentDetector_2(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps);
-    private static native long createLineSegmentDetector_3(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th);
-    private static native long createLineSegmentDetector_4(int _refine, double _scale, double _sigma_scale, double _quant);
-    private static native long createLineSegmentDetector_5(int _refine, double _scale, double _sigma_scale);
-    private static native long createLineSegmentDetector_6(int _refine, double _scale);
-    private static native long createLineSegmentDetector_7(int _refine);
+    // C++:  Ptr_LineSegmentDetector cv::createLineSegmentDetector(int refine = LSD_REFINE_STD, double scale = 0.8, double sigma_scale = 0.6, double quant = 2.0, double ang_th = 22.5, double log_eps = 0, double density_th = 0.7, int n_bins = 1024)
+    private static native long createLineSegmentDetector_0(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th, int n_bins);
+    private static native long createLineSegmentDetector_1(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th);
+    private static native long createLineSegmentDetector_2(int refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps);
+    private static native long createLineSegmentDetector_3(int refine, double scale, double sigma_scale, double quant, double ang_th);
+    private static native long createLineSegmentDetector_4(int refine, double scale, double sigma_scale, double quant);
+    private static native long createLineSegmentDetector_5(int refine, double scale, double sigma_scale);
+    private static native long createLineSegmentDetector_6(int refine, double scale);
+    private static native long createLineSegmentDetector_7(int refine);
     private static native long createLineSegmentDetector_8();
 
     // C++:  Mat cv::getGaussianKernel(int ksize, double sigma, int ktype = CV_64F)
@@ -9392,6 +9706,13 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void goodFeaturesToTrack_6(long image_nativeObj, long corners_mat_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, int blockSize, int gradientSize, boolean useHarrisDetector);
     private static native void goodFeaturesToTrack_7(long image_nativeObj, long corners_mat_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, int blockSize, int gradientSize);
 
+    // C++:  void cv::goodFeaturesToTrack(Mat image, Mat& corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat& cornersQuality, int blockSize = 3, int gradientSize = 3, bool useHarrisDetector = false, double k = 0.04)
+    private static native void goodFeaturesToTrackWithQuality_0(long image_nativeObj, long corners_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, long cornersQuality_nativeObj, int blockSize, int gradientSize, boolean useHarrisDetector, double k);
+    private static native void goodFeaturesToTrackWithQuality_1(long image_nativeObj, long corners_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, long cornersQuality_nativeObj, int blockSize, int gradientSize, boolean useHarrisDetector);
+    private static native void goodFeaturesToTrackWithQuality_2(long image_nativeObj, long corners_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, long cornersQuality_nativeObj, int blockSize, int gradientSize);
+    private static native void goodFeaturesToTrackWithQuality_3(long image_nativeObj, long corners_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, long cornersQuality_nativeObj, int blockSize);
+    private static native void goodFeaturesToTrackWithQuality_4(long image_nativeObj, long corners_nativeObj, int maxCorners, double qualityLevel, double minDistance, long mask_nativeObj, long cornersQuality_nativeObj);
+
     // C++:  void cv::HoughLines(Mat image, Mat& lines, double rho, double theta, int threshold, double srn = 0, double stn = 0, double min_theta = 0, double max_theta = CV_PI)
     private static native void HoughLines_0(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta);
     private static native void HoughLines_1(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn, double stn, double min_theta);
@@ -9404,8 +9725,8 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void HoughLinesP_1(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double minLineLength);
     private static native void HoughLinesP_2(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold);
 
-    // C++:  void cv::HoughLinesPointSet(Mat _point, Mat& _lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
-    private static native void HoughLinesPointSet_0(long _point_nativeObj, long _lines_nativeObj, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step);
+    // C++:  void cv::HoughLinesPointSet(Mat point, Mat& lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
+    private static native void HoughLinesPointSet_0(long point_nativeObj, long lines_nativeObj, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step);
 
     // C++:  void cv::HoughCircles(Mat image, Mat& circles, int method, double dp, double minDist, double param1 = 100, double param2 = 100, int minRadius = 0, int maxRadius = 0)
     private static native void HoughCircles_0(long image_nativeObj, long circles_nativeObj, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius);
@@ -9488,6 +9809,11 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     // C++:  void cv::warpPolar(Mat src, Mat& dst, Size dsize, Point2f center, double maxRadius, int flags)
     private static native void warpPolar_0(long src_nativeObj, long dst_nativeObj, double dsize_width, double dsize_height, double center_x, double center_y, double maxRadius, int flags);
 
+    // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, Mat& tilted, int sdepth = -1, int sqdepth = -1)
+    private static native void integral3_0(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj, int sdepth, int sqdepth);
+    private static native void integral3_1(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj, int sdepth);
+    private static native void integral3_2(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj);
+
     // C++:  void cv::integral(Mat src, Mat& sum, int sdepth = -1)
     private static native void integral_0(long src_nativeObj, long sum_nativeObj, int sdepth);
     private static native void integral_1(long src_nativeObj, long sum_nativeObj);
@@ -9496,11 +9822,6 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void integral2_0(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, int sdepth, int sqdepth);
     private static native void integral2_1(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, int sdepth);
     private static native void integral2_2(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj);
-
-    // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, Mat& tilted, int sdepth = -1, int sqdepth = -1)
-    private static native void integral3_0(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj, int sdepth, int sqdepth);
-    private static native void integral3_1(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj, int sdepth);
-    private static native void integral3_2(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj);
 
     // C++:  void cv::accumulate(Mat src, Mat& dst, Mat mask = Mat())
     private static native void accumulate_0(long src_nativeObj, long dst_nativeObj, long mask_nativeObj);
@@ -9525,6 +9846,10 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
 
     // C++:  void cv::createHanningWindow(Mat& dst, Size winSize, int type)
     private static native void createHanningWindow_0(long dst_nativeObj, double winSize_width, double winSize_height, int type);
+
+    // C++:  void cv::divSpectrums(Mat a, Mat b, Mat& c, int flags, bool conjB = false)
+    private static native void divSpectrums_0(long a_nativeObj, long b_nativeObj, long c_nativeObj, int flags, boolean conjB);
+    private static native void divSpectrums_1(long a_nativeObj, long b_nativeObj, long c_nativeObj, int flags);
 
     // C++:  double cv::threshold(Mat src, Mat& dst, double thresh, double maxval, int type)
     private static native double threshold_0(long src_nativeObj, long dst_nativeObj, double thresh, double maxval, int type);
@@ -9591,6 +9916,9 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native int floodFill_2(long image_nativeObj, long mask_nativeObj, double seedPoint_x, double seedPoint_y, double newVal_val0, double newVal_val1, double newVal_val2, double newVal_val3, double[] rect_out, double loDiff_val0, double loDiff_val1, double loDiff_val2, double loDiff_val3);
     private static native int floodFill_3(long image_nativeObj, long mask_nativeObj, double seedPoint_x, double seedPoint_y, double newVal_val0, double newVal_val1, double newVal_val2, double newVal_val3, double[] rect_out);
     private static native int floodFill_4(long image_nativeObj, long mask_nativeObj, double seedPoint_x, double seedPoint_y, double newVal_val0, double newVal_val1, double newVal_val2, double newVal_val3);
+
+    // C++:  void cv::blendLinear(Mat src1, Mat src2, Mat weights1, Mat weights2, Mat& dst)
+    private static native void blendLinear_0(long src1_nativeObj, long src2_nativeObj, long weights1_nativeObj, long weights2_nativeObj, long dst_nativeObj);
 
     // C++:  void cv::cvtColor(Mat src, Mat& dst, int code, int dstCn = 0)
     private static native void cvtColor_0(long src_nativeObj, long dst_nativeObj, int code, int dstCn);
@@ -9672,9 +10000,9 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     // C++:  bool cv::isContourConvex(vector_Point contour)
     private static native boolean isContourConvex_0(long contour_mat_nativeObj);
 
-    // C++:  float cv::intersectConvexConvex(Mat _p1, Mat _p2, Mat& _p12, bool handleNested = true)
-    private static native float intersectConvexConvex_0(long _p1_nativeObj, long _p2_nativeObj, long _p12_nativeObj, boolean handleNested);
-    private static native float intersectConvexConvex_1(long _p1_nativeObj, long _p2_nativeObj, long _p12_nativeObj);
+    // C++:  float cv::intersectConvexConvex(Mat p1, Mat p2, Mat& p12, bool handleNested = true)
+    private static native float intersectConvexConvex_0(long p1_nativeObj, long p2_nativeObj, long p12_nativeObj, boolean handleNested);
+    private static native float intersectConvexConvex_1(long p1_nativeObj, long p2_nativeObj, long p12_nativeObj);
 
     // C++:  RotatedRect cv::fitEllipse(vector_Point2f points)
     private static native double[] fitEllipse_0(long points_mat_nativeObj);
@@ -9795,6 +10123,13 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     // C++:  double cv::getFontScaleFromHeight(int fontFace, int pixelHeight, int thickness = 1)
     private static native double getFontScaleFromHeight_0(int fontFace, int pixelHeight, int thickness);
     private static native double getFontScaleFromHeight_1(int fontFace, int pixelHeight);
+
+    // C++:  void cv::HoughLinesWithAccumulator(Mat image, Mat& lines, double rho, double theta, int threshold, double srn = 0, double stn = 0, double min_theta = 0, double max_theta = CV_PI)
+    private static native void HoughLinesWithAccumulator_0(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta);
+    private static native void HoughLinesWithAccumulator_1(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn, double stn, double min_theta);
+    private static native void HoughLinesWithAccumulator_2(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn, double stn);
+    private static native void HoughLinesWithAccumulator_3(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold, double srn);
+    private static native void HoughLinesWithAccumulator_4(long image_nativeObj, long lines_nativeObj, double rho, double theta, int threshold);
 private static native double[] n_getTextSize(String text, int fontFace, double fontScale, int thickness, int[] baseLine);
 
 }

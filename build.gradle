@@ -2,22 +2,22 @@ buildscript {
     ext {
         versionCode = 15
         versionName = "2.0.8"
-        compileSdkVersion = 29
+        compileSdkVersion = 31
         minSdkVersion = 21
         group = "com.github.meganz"
 
-        kotlinVersion = "1.4.10"
+        kotlinVersion = "1.5.31"
         navigationVersion = "2.3.5"
-        lifecycleVersion = "2.3.1"
+        lifecycleVersion = "2.4.0"
     }
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.3"
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
     }
@@ -30,7 +30,7 @@ plugins {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
     }
 }

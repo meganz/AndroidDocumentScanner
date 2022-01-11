@@ -71,7 +71,9 @@ public class TextRecognitionModel extends Model {
 
     /**
      * Set the decoding method of translating the network output into string
-     * @param decodeType The decoding method of translating the network output into string: {'CTC-greedy': greedy decoding for the output of CTC-based methods}
+     * @param decodeType The decoding method of translating the network output into string, currently supported type:
+     * - {@code "CTC-greedy"} greedy decoding for the output of CTC-based methods
+     * - {@code "CTC-prefix-beam-search"} Prefix beam search decoding for the output of CTC-based methods
      * @return automatically generated
      */
     public TextRecognitionModel setDecodeType(String decodeType) {
@@ -89,6 +91,32 @@ public class TextRecognitionModel extends Model {
      */
     public String getDecodeType() {
         return getDecodeType_0(nativeObj);
+    }
+
+
+    //
+    // C++:  TextRecognitionModel cv::dnn::TextRecognitionModel::setDecodeOptsCTCPrefixBeamSearch(int beamSize, int vocPruneSize = 0)
+    //
+
+    /**
+     * Set the decoding method options for {@code "CTC-prefix-beam-search"} decode usage
+     * @param beamSize Beam size for search
+     * @param vocPruneSize Parameter to optimize big vocabulary search,
+     * only take top {@code vocPruneSize} tokens in each search step, {@code vocPruneSize} &lt;= 0 stands for disable this prune.
+     * @return automatically generated
+     */
+    public TextRecognitionModel setDecodeOptsCTCPrefixBeamSearch(int beamSize, int vocPruneSize) {
+        return new TextRecognitionModel(setDecodeOptsCTCPrefixBeamSearch_0(nativeObj, beamSize, vocPruneSize));
+    }
+
+    /**
+     * Set the decoding method options for {@code "CTC-prefix-beam-search"} decode usage
+     * @param beamSize Beam size for search
+     * only take top {@code vocPruneSize} tokens in each search step, {@code vocPruneSize} &lt;= 0 stands for disable this prune.
+     * @return automatically generated
+     */
+    public TextRecognitionModel setDecodeOptsCTCPrefixBeamSearch(int beamSize) {
+        return new TextRecognitionModel(setDecodeOptsCTCPrefixBeamSearch_1(nativeObj, beamSize));
     }
 
 
@@ -168,6 +196,10 @@ public class TextRecognitionModel extends Model {
 
     // C++:  string cv::dnn::TextRecognitionModel::getDecodeType()
     private static native String getDecodeType_0(long nativeObj);
+
+    // C++:  TextRecognitionModel cv::dnn::TextRecognitionModel::setDecodeOptsCTCPrefixBeamSearch(int beamSize, int vocPruneSize = 0)
+    private static native long setDecodeOptsCTCPrefixBeamSearch_0(long nativeObj, int beamSize, int vocPruneSize);
+    private static native long setDecodeOptsCTCPrefixBeamSearch_1(long nativeObj, int beamSize);
 
     // C++:  TextRecognitionModel cv::dnn::TextRecognitionModel::setVocabulary(vector_string vocabulary)
     private static native long setVocabulary_0(long nativeObj, List<String> vocabulary);
