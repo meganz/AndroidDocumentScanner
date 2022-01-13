@@ -67,8 +67,8 @@ class DocumentScannerActivity : AppCompatActivity() {
 
     private fun initOpenCV() {
         lifecycleScope.launch {
-            val result = ImageScanner.init()
-            Log.d(TAG, "OpenCV initialized: $result")
+            ImageScanner.init()
+            Log.d(TAG, "OpenCV initialized")
         }
     }
 

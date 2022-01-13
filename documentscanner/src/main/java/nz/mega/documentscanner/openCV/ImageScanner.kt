@@ -10,7 +10,6 @@ import nz.mega.documentscanner.BuildConfig
 import nz.mega.documentscanner.openCV.OpenCvUtils.crop
 import nz.mega.documentscanner.openCV.OpenCvUtils.yuvToRgbaMat
 import nz.mega.documentscanner.utils.BitmapUtils.toMat
-import org.opencv.android.OpenCVLoader
 import org.opencv.core.MatOfPoint2f
 
 object ImageScanner {
@@ -21,13 +20,13 @@ object ImageScanner {
      *
      * @return true if it has been initialised successfully, false otherwise.
      */
-    suspend fun init(): Boolean {
+    suspend fun init() {
         if (!isCpuCompatible()) {
             error("CPU is not compatible with ${BuildConfig.NDK_ABI_FILTERS.contentToString()}")
         }
 
         return withContext(Dispatchers.IO) {
-            OpenCVLoader.initDebug()
+            System.loadLibrary("opencv_java4")
         }
     }
 
