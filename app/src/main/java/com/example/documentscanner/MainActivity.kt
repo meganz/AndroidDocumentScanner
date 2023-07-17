@@ -2,19 +2,17 @@ package com.example.documentscanner
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.PersistableBundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import nz.mega.documentscanner.DocumentScannerActivity
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        Handler().postDelayed({
+        findViewById<Button>(R.id.btnPick).setOnClickListener {
             startActivity(Intent(this, DocumentScannerActivity::class.java))
-        }, 2000L)
+        }
     }
 }
