@@ -157,8 +157,9 @@ class DocumentScannerViewModel : ViewModel() {
                     document.value?.pages?.add(page)
                 } else {
                     document.value?.pages?.add(retakePosition, page)
-                    retakePosition = NO_POSITION
                 }
+                // Reset retakePosition after the page is added to avoid retakePosition causes the add page is incorrect.
+                retakePosition = NO_POSITION
 
                 bitmap.recycle()
                 transformBitmap?.recycle()
@@ -242,13 +243,21 @@ class DocumentScannerViewModel : ViewModel() {
     }
 
     /**
-     * Retake scan page
+     * Retake scan page, only update the retakePage, don't delete the current page.
      *
      * @param position Page position to be retaken. Default value is the current position
      */
     fun retakePage(position: Int = currentPagePosition.value ?: 0) {
         retakePosition = position
-        deletePage(position)
+    }
+
+    /**
+     * Delete the previous page if retaking the page
+     */
+    fun deletePageForRetake() {
+        if (retakePosition != NO_POSITION){
+            deletePage(retakePosition)
+        }
     }
 
     /**
@@ -313,7 +322,7 @@ class DocumentScannerViewModel : ViewModel() {
     }
 
     private fun updateDocumentFileType() {
-        if (document.value?.pages?.size ?: 0 > 1) {
+        if ((document.value?.pages?.size ?: 0) > 1) {
             document.value?.fileType = FileType.PDF
         }
     }
