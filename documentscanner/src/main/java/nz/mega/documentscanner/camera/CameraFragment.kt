@@ -166,6 +166,7 @@ class CameraFragment : Fragment() {
     }
 
     private fun takePicture() {
+        viewModel.deletePageForRetake()
         showProgress(true)
         imageAnalyzer?.clearAnalyzer()
         imageCapture?.takePicture(cameraExecutor, buildImageCapturedCallback())
