@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -46,8 +45,8 @@ class SaveFragment : Fragment() {
             .setMessage(
                 getString(
                     R.string.scan_dialog_progress,
-                    viewModel.getDocument().value?.fileType?.suffix
-                        ?: Document.FileType.PDF.suffix
+                    viewModel.getDocument().value?.fileType?.title
+                        ?: Document.FileType.PDF.title
                 )
             )
             .setCancelable(false)
@@ -271,9 +270,8 @@ class SaveFragment : Fragment() {
     private fun updateFileName() {
         if (!binding.editFileName.text.isNullOrEmpty() && binding.inputFileName.error.isNullOrEmpty()) {
             fileNameWithoutSuffix = binding.editFileName.text.toString()
-            // Please notice there is the "." in front of the suffix
             binding.fileName.text =
-                "$fileNameWithoutSuffix.${viewModel.getDocument().value?.fileType?.suffix}"
+                "$fileNameWithoutSuffix${viewModel.getDocument().value?.fileType?.suffix}"
         }
     }
 
