@@ -46,7 +46,8 @@ class SaveFragment : Fragment() {
             .setMessage(
                 getString(
                     R.string.scan_dialog_progress,
-                    viewModel.getDocumentFileType().value ?: Document.FileType.PDF.suffix
+                    viewModel.getDocument().value?.fileType?.suffix
+                        ?: Document.FileType.PDF.suffix
                 )
             )
             .setCancelable(false)
@@ -271,7 +272,8 @@ class SaveFragment : Fragment() {
         if (!binding.editFileName.text.isNullOrEmpty() && binding.inputFileName.error.isNullOrEmpty()) {
             fileNameWithoutSuffix = binding.editFileName.text.toString()
             // Please notice there is the "." in front of the suffix
-            binding.fileName.text = "$fileNameWithoutSuffix.${viewModel.getDocument().value?.fileType?.suffix}"
+            binding.fileName.text =
+                "$fileNameWithoutSuffix.${viewModel.getDocument().value?.fileType?.suffix}"
         }
     }
 
