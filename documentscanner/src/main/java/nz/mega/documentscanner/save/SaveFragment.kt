@@ -75,8 +75,8 @@ class SaveFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         onBackPressedCallback.remove()
     }
 
