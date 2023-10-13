@@ -58,6 +58,8 @@ class DocumentScannerViewModel : ViewModel() {
     fun getDocumentFileType(): LiveData<FileType> =
         document.map { it.fileType }
 
+    fun getDocument(): LiveData<Document> = document
+
     fun getSaveDestinations(): LiveData<List<Pair<String, Boolean>>> =
         saveDestinations.map { destinations ->
             val currentSaveDestination = document.value?.saveDestination

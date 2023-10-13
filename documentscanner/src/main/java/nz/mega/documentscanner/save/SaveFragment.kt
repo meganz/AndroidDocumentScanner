@@ -1,14 +1,17 @@
 package nz.mega.documentscanner.save
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -219,7 +222,7 @@ class SaveFragment : Fragment() {
         if (binding.chipGroupFileType.checkedChipId != chipResId) {
             binding.chipGroupFileType.check(chipResId)
         }
-        updateFileName(fileType)
+        updateFileName()
     }
 
     private fun showDocumentQuality(quality: Document.Quality) {
@@ -264,17 +267,19 @@ class SaveFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateFileName(fileType: Document.FileType = viewModel.getDocumentFileType().value ?: Document.FileType.PDF) {
+    private fun updateFileName() {
         if (!binding.editFileName.text.isNullOrEmpty() && binding.inputFileName.error.isNullOrEmpty()) {
             fileNameWithoutSuffix = binding.editFileName.text.toString()
             // Please notice there is the "." in front of the suffix
-            binding.fileName.text = "$fileNameWithoutSuffix.${fileType.suffix}"
+            binding.fileName.text = "$fileNameWithoutSuffix.${viewModel.getDocument().value?.fileType?.suffix}"
         }
     }
 
     private fun checkAndClearFocusForEditFileName() {
         if (binding.inputFileName.error.isNullOrEmpty()) {
             binding.editFileName.clearFocus()
+            (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(binding.editFileName.windowToken, 0)
         }
     }
 
