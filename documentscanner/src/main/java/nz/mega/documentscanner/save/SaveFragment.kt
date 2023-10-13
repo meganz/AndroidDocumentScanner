@@ -1,10 +1,12 @@
 package nz.mega.documentscanner.save
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
@@ -32,6 +34,7 @@ class SaveFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentSaveBinding
+    private var fileNameWithoutSuffix = ""
 
     private val viewModel: DocumentScannerViewModel by activityViewModels()
     private val progressDialog: AlertDialog by lazy {
@@ -40,11 +43,17 @@ class SaveFragment : Fragment() {
             .setMessage(
                 getString(
                     R.string.scan_dialog_progress,
-                    binding.editFileName.suffix!!.split(".")[1]
+                    viewModel.getDocumentFileType().value ?: Document.FileType.PDF.suffix
                 )
             )
             .setCancelable(false)
             .show()
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            checkNameWhetherInvalidAndPopBackStack()
+        }
     }
 
     override fun onCreateView(
@@ -60,6 +69,12 @@ class SaveFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupObservers()
+        activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onBackPressedCallback.remove()
     }
 
     private fun setupView() {
@@ -69,13 +84,31 @@ class SaveFragment : Fragment() {
 
         binding.editFileName.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                view.clearFocus()
+                when (binding.inputFileName.error) {
+                    getString(R.string.scan_incorrect_name) -> {
+                        showSnackbar(R.string.scan_snackbar_incorrect_name)
+                    }
+
+                    getString(R.string.scan_invalid_characters) -> {
+                        showSnackbar(R.string.scan_snackbar_invalid_characters)
+                    }
+
+                    else -> {
+                        view.clearFocus()
+                    }
+                }
             }
             false
         }
 
         binding.editFileName.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            // When editFileName lost focus, update UI and file name
             binding.imgRename.isVisible = !hasFocus
+            binding.fileName.isVisible = !hasFocus
+            binding.inputFileName.isVisible = hasFocus
+            if (!hasFocus) {
+                updateFileName()
+            }
         }
 
         binding.imgRename.setOnClickListener { binding.editFileName.selectAllCharacters() }
@@ -88,6 +121,7 @@ class SaveFragment : Fragment() {
             }
 
             viewModel.setDocumentFileType(fileType)
+            checkAndClearFocusForEditFileName()
         }
 
         binding.chipGroupQuality.setOnCheckedChangeListener { _, checkedId ->
@@ -99,6 +133,7 @@ class SaveFragment : Fragment() {
             }
 
             viewModel.setDocumentQuality(quality)
+            checkAndClearFocusForEditFileName()
         }
 
         binding.chipGroupDestinations.setOnCheckedChangeListener { group, checkedId ->
@@ -107,10 +142,13 @@ class SaveFragment : Fragment() {
                     val destination = (child as Chip).text.toString()
                     viewModel.setDocumentSaveDestination(destination)
                 }
+
+            checkAndClearFocusForEditFileName()
         }
 
+        binding.fileName.setOnClickListener { binding.editFileName.selectAllCharacters() }
         binding.groupFileType.isVisible = viewModel.getPagesCount() == 1
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnBack.setOnClickListener { checkNameWhetherInvalidAndPopBackStack() }
         binding.btnSave.setOnClickListener { createDocument() }
     }
 
@@ -126,7 +164,11 @@ class SaveFragment : Fragment() {
         binding.groupDestination.isVisible = destinations.isNotEmpty()
 
         destinations.forEach { destination ->
-            val chip = ItemDestinationBinding.inflate(layoutInflater, binding.chipGroupDestinations, false).root
+            val chip = ItemDestinationBinding.inflate(
+                layoutInflater,
+                binding.chipGroupDestinations,
+                false
+            ).root
             chip.text = destination.first
 
             binding.chipGroupDestinations.addView(chip)
@@ -141,13 +183,17 @@ class SaveFragment : Fragment() {
             title.isNullOrBlank() -> {
                 binding.inputFileName.error = getString(R.string.scan_incorrect_name)
             }
+
             FILE_NAME_PATTERN.toRegex().containsMatchIn(title) -> {
                 binding.inputFileName.error = getString(R.string.scan_invalid_characters)
             }
+
             title != binding.editFileName.text.toString() -> {
                 binding.editFileName.setText(title)
                 binding.inputFileName.error = null
+                updateFileName()
             }
+
             else -> {
                 binding.inputFileName.error = null
             }
@@ -163,18 +209,17 @@ class SaveFragment : Fragment() {
                 chipResId = R.id.chip_file_type_pdf
                 imageResId = R.drawable.ic_docscanner_pdf
             }
+
             Document.FileType.JPG -> {
                 chipResId = R.id.chip_file_type_jpg
                 imageResId = R.drawable.ic_docscanner_jpeg
             }
         }
-
-        binding.editFileName.suffix = " ${fileType.suffix}"
         binding.imgFileType.setImageResource(imageResId)
-
         if (binding.chipGroupFileType.checkedChipId != chipResId) {
             binding.chipGroupFileType.check(chipResId)
         }
+        updateFileName(fileType)
     }
 
     private fun showDocumentQuality(quality: Document.Quality) {
@@ -194,9 +239,11 @@ class SaveFragment : Fragment() {
             getString(R.string.scan_incorrect_name) -> {
                 showSnackbar(R.string.scan_snackbar_incorrect_name)
             }
+
             getString(R.string.scan_invalid_characters) -> {
                 showSnackbar(R.string.scan_snackbar_invalid_characters)
             }
+
             else -> {
                 progressDialog.show()
                 viewModel.generateDocument(requireContext()).observe(viewLifecycleOwner) {
@@ -214,5 +261,28 @@ class SaveFragment : Fragment() {
         } else {
             Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateFileName(fileType: Document.FileType = viewModel.getDocumentFileType().value ?: Document.FileType.PDF) {
+        if (!binding.editFileName.text.isNullOrEmpty() && binding.inputFileName.error.isNullOrEmpty()) {
+            fileNameWithoutSuffix = binding.editFileName.text.toString()
+            // Please notice there is the "." in front of the suffix
+            binding.fileName.text = "$fileNameWithoutSuffix.${fileType.suffix}"
+        }
+    }
+
+    private fun checkAndClearFocusForEditFileName() {
+        if (binding.inputFileName.error.isNullOrEmpty()) {
+            binding.editFileName.clearFocus()
+        }
+    }
+
+    private fun checkNameWhetherInvalidAndPopBackStack() {
+        // if the name is invalid, revert the name to the previous one.
+        if (!binding.inputFileName.error.isNullOrEmpty()) {
+            viewModel.setDocumentTitle(fileNameWithoutSuffix)
+        }
+        findNavController().popBackStack()
     }
 }

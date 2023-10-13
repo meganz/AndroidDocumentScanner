@@ -11,6 +11,6 @@ data class Document constructor(
     var pages: MutableList<Page> = mutableListOf()
 ) {
 
-    enum class FileType(val suffix: String) { PDF(".pdf"), JPG(".jpg") }
+    enum class FileType(val suffix: String) { PDF("pdf"), JPG("jpg") }
     enum class Quality(val value: Int) { LOW(35), MEDIUM(50), HIGH(90) }
 }
