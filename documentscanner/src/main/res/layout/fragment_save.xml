@@ -45,34 +45,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_file_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/input_file_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_marginStart="72dp"
         android:layout_marginEnd="44dp"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_file_name">
 
-        <nz.mega.documentscanner.utils.SuffixTextInputEditText
-            android:id="@+id/edit_file_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_file_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_file_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:textColorHint="?colorOnSurface"
+                tools:text="Scanned_20200804.pdf" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/file_name"
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="middle"
+            android:gravity="center_vertical"
             android:lines="1"
             android:maxLines="1"
             android:paddingStart="0dp"
-            android:paddingLeft="0dp"
             android:paddingEnd="0dp"
-            android:paddingRight="0dp"
-            android:textColorHint="?colorOnSurface"
+            android:textColor="?colorOnSurface"
+            android:textSize="16sp"
             tools:text="Scanned_20200804.pdf" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/img_file_type"
@@ -82,8 +104,9 @@
         android:baselineAlignBottom="true"
         android:paddingBottom="7dp"
         android:src="@drawable/ic_docscanner_pdf"
-        app:layout_constraintBaseline_toBaselineOf="@id/input_file_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/input_file_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/input_file_layout" />
 
     <ImageView
         android:id="@+id/img_rename"
@@ -93,8 +116,9 @@
         android:baselineAlignBottom="true"
         android:paddingBottom="2dp"
         android:src="@drawable/ic_docscanner_rename"
-        app:layout_constraintBaseline_toBaselineOf="@id/input_file_name"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/input_file_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/input_file_layout" />
 
     <View
         android:id="@+id/separator_file_name"
@@ -105,7 +129,7 @@
         android:background="@color/dividerColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_file_name" />
+        app:layout_constraintTop_toBottomOf="@id/input_file_layout" />
 
     <TextView
         android:id="@+id/txt_file_type"
