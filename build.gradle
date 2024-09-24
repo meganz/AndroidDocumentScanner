@@ -1,12 +1,12 @@
 buildscript {
     ext {
-        versionCode = 19
-        versionName = "2.0.12"
+        versionCode = 20
+        versionName = "2.0.13"
         compileSdkVersion = 29
         minSdkVersion = 21
         group = "com.github.meganz"
 
-        kotlinVersion = "1.4.10"
+        kotlinVersion = "1.8.0"
         navigationVersion = "2.3.5"
         lifecycleVersion = "2.3.1"
     }
