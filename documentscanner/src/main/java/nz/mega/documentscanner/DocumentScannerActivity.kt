@@ -23,7 +23,7 @@ import nz.mega.documentscanner.utils.FileUtils
 import nz.mega.documentscanner.utils.IntentUtils.extra
 import nz.mega.documentscanner.utils.ViewUtils.hideKeyboard
 
-class DocumentScannerActivity : AppCompatActivity() {
+open class DocumentScannerActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PICKED_SAVE_DESTINATION = "EXTRA_PICKED_SAVE_DESTINATION"
@@ -33,8 +33,11 @@ class DocumentScannerActivity : AppCompatActivity() {
 
         @JvmStatic
         @JvmOverloads
-        fun getIntent(context: Context, saveDestinations: Array<String>? = null): Intent =
-            Intent(context, DocumentScannerActivity::class.java).apply {
+        fun getIntent(
+            context: Context,
+            targetClass: Class<*> = DocumentScannerActivity::class.java,
+            saveDestinations: Array<String>? = null
+        ) = Intent(context, targetClass).apply {
                 saveDestinations?.let { putExtra(EXTRA_SAVE_DESTINATIONS, it) }
             }
     }
@@ -47,12 +50,14 @@ class DocumentScannerActivity : AppCompatActivity() {
         NavController.OnDestinationChangedListener { _, _, _ -> currentFocus?.hideKeyboard() }
     }
 
+    open fun setUpEdgeToEdge() {}
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initOpenCV()
         initFresco()
-
+        setUpEdgeToEdge()
         binding = ActivityDocumentScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupObservers()
@@ -93,6 +98,7 @@ class DocumentScannerActivity : AppCompatActivity() {
             documentUri == null -> {
                 setResult(Activity.RESULT_CANCELED)
             }
+
             callingActivity != null -> {
                 val resultIntent = Intent().apply {
                     putExtra(EXTRA_PICKED_SAVE_DESTINATION, viewModel.getSaveDestination())
@@ -100,9 +106,11 @@ class DocumentScannerActivity : AppCompatActivity() {
                 }
                 setResult(Activity.RESULT_OK, resultIntent)
             }
+
             else -> {
                 val providerAuthority = FileUtils.getProviderAuthority(this)
-                val fileUri = FileProvider.getUriForFile(this, providerAuthority, documentUri.toFile())
+                val fileUri =
+                    FileProvider.getUriForFile(this, providerAuthority, documentUri.toFile())
                 val fileMimeType = contentResolver.getType(fileUri)
                 val fileTitle = viewModel.getDocumentTitle().value
 
